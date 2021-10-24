@@ -1,9 +1,24 @@
-const canvas = document.getElementById('game-canvas');
-const ctx = canvas.getContext("2d");
-
 class CelestialObject {
 	constructor(mass) {
 		this.mass = mass;
+		this.old_position = new Vector(canvas.width / 2, canvas.height / 2);
+		this.old_velocity = new Vector(0, 0);
+	}
+
+	get position() {
+		const position_incr = this.velocity.multiply(TIME_SCALE);
+		this.old_position = position_incr.add(this.old_position);
+		return this.old_position;
+	}
+
+	get velocity() {
+		const velocity_incr = this.acceleration.multiply(TIME_SCALE);
+		this.old_velocity = velocity_incr.add(this.old_velocity);
+		return this.old_velocity;
+	}
+
+	get acceleration() {
+		return new Vector(0, 0);
 	}
 }
 
