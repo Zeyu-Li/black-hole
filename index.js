@@ -1,8 +1,8 @@
 class CelestialObject {
-	constructor(mass) {
+	constructor(mass, initialPosition, initialVelocity) {
 		this.mass = mass;
-		this.old_position = new Vector(canvas.width / 2, canvas.height / 2);
-		this.old_velocity = new Vector(0, 0);
+		this.old_position = initialPosition;
+		this.old_velocity = initialVelocity;
 	}
 
 	get position() {
