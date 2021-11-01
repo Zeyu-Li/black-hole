@@ -1,9 +1,9 @@
 // TODO: finetune this constant
-const G = 1;
+const G = 200;
 const TIME_SCALE = 1/60;
 
-function isVector() {
-	return this.x !== undefined && this.y !== undefined;
+function isVector(o) {
+	return o.x !== undefined && o.y !== undefined;
 }
 
 class Vector {
@@ -46,15 +46,16 @@ class Vector {
 		const delta = this.subtract(o);
 		return Math.sqrt((delta.x**2) + (delta.y**2));
 	}
+
+	angleTo(o) {
+		const delta = o.subtract(this);
+		return Math.atan2(delta.y, delta.x);
+	}
 }
 
-function GravityForce(o1, o2) {
-	const m1 = o1.mass;
-	const m2 = o2.mass;
-	const r = o1.position.subtract(o2.position);
-	const r_squared = r.multiply(r);
-	const GMm = G * m1 * m2;
-	const force_x = GMm / r.x;
-	const force_y = GMm / r.y;
-	return new Vector(force_x, force_y);
+function GravityAcceleration(o1, o2) {
+	const r = o1.old_position.distanceTo(o2.position);
+	const acc = G * o2.mass / (r ** 2);
+	const angle = o1.old_position.angleTo(o2.position);
+	return new Vector(acc * Math.cos(angle), acc * Math.sin(angle));
 }
