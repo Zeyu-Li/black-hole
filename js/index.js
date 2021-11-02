@@ -1,6 +1,5 @@
 const canvas = document.getElementById('game-canvas');
 const ctx = canvas.getContext("2d");
-let centerOfMass;
 var DEBUG = true;
 
 class CelestialObject {
@@ -25,22 +24,20 @@ class CelestialObject {
 	}
 
 	get acceleration() {
-		// remove self from center of mass
-		let correctedCenterOfMass = centerOfMass;
-		// I think this is right but not 100%
-		correctedCenterOfMass.position = centerOfMass.position
-			.subtract(this.old_position
-				.multiply(1 / centerOfMass.mass)
-				.multiply(this.mass));
-		correctedCenterOfMass.mass -= this.mass;
-		return GravityAcceleration(this, centerOfMass);
+		let accelerations = [];
+		for (let celestialObject of celestialObjects) {
+			if (celestialObject !== this) {
+				accelerations.push(GravityAcceleration(this, celestialObject));
+			}
+		}
+		return accelerations.reduce((v1, v2) => v1.add(v2));
 	}
 
 	render() {
 		ctx.beginPath();
-		ctx.fillStyle = "#ffff00";
 		let position = this.position;
 		ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
+		ctx.fillStyle = "#ffff00";
 		ctx.fill();
 	}
 }
@@ -57,20 +54,6 @@ function renderBackground() {
 	ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function updateCenterOfMass() {
-	centerOfMass = {
-		mass: 0,
-		position: new Vector(0, 0)
-	};
-	for (let celestialObject of celestialObjects) {
-		centerOfMass.mass += celestialObject.mass;
-		centerOfMass.position = centerOfMass.position
-			.add(celestialObject.old_position.multiply(celestialObject.mass));
-	}
-	centerOfMass.position = centerOfMass.position
-		.multiply(1 / centerOfMass.mass);
-}
-
 function renderCelestialObjects() {
 	for (let celestialObject of celestialObjects) {
 		celestialObject.render();
@@ -80,21 +63,13 @@ function renderCelestialObjects() {
 function render() {
 	fitToScreen();
 	renderBackground();
-	updateCenterOfMass();
 	renderCelestialObjects();
-	// TODO remove when the issue is fixed
-	if (DEBUG) {
-		ctx.beginPath();
-		ctx.fillStyle = "#00ff00";
-		ctx.arc(centerOfMass.position.x, centerOfMass.position.y, 5, 0, 2 * Math.PI);
-		ctx.fill();
-	}
 	requestAnimationFrame(render);
 }
 
 let celestialObjects = [
 	new CelestialObject(10, new Vector(100, 100)),
-	new CelestialObject(20, new Vector(255, 500)),
+	new CelestialObject(20, new Vector(255, 500), new Vector(5, -1)),
 	new CelestialObject(30, new Vector(400, 150)),
 	new CelestialObject(30, new Vector(600, 750)),
 ];

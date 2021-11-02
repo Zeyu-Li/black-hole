@@ -1,5 +1,5 @@
 // TODO: finetune this constant
-const G = 200;
+const G = 250;
 const TIME_SCALE = 1/60;
 
 function isVector(o) {
@@ -54,8 +54,8 @@ class Vector {
 }
 
 function GravityAcceleration(o1, o2) {
-	const r = o1.old_position.distanceTo(o2.position);
+	const r = o1.old_position.distanceTo(o2.old_position);
 	const acc = G * o2.mass / (r ** 2);
-	const angle = o1.old_position.angleTo(o2.position);
+	const angle = o1.old_position.angleTo(o2.old_position);
 	return new Vector(acc * Math.cos(angle), acc * Math.sin(angle));
 }
