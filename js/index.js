@@ -3,9 +3,6 @@ const ctx = canvas.getContext("2d");
 var DEBUG = true;
 
 let planet_image = new Image();
-let curr_x, curr_y;
-let speed_x = 5,
-  speed_y = 5;
 
 class CelestialObject {
   constructor(
@@ -41,11 +38,19 @@ class CelestialObject {
   }
 
   render() {
-    ctx.beginPath();
+    // ctx.beginPath();
     let position = this.position;
-    ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
-    ctx.fillStyle = "#ffff00";
-    ctx.fill();
+    // ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
+    // ctx.fillStyle = "#ffff00";
+    // ctx.fill();
+
+    renderImage(
+      planet_image,
+      position.x,
+      position.y,
+      this.mass * 3,
+      this.mass * 3
+    );
   }
 }
 
@@ -87,17 +92,7 @@ const initialize = () => {
 function render() {
   fitToScreen();
   renderBackground();
-  curr_x += speed_x;
-  curr_y += speed_y;
-  if (curr_x > document.documentElement.clientHeight - 100 || curr_x < 0) {
-    speed_x = -speed_x;
-  } else if (
-    curr_y > document.documentElement.clientWidth - 100 ||
-    curr_y < 0
-  ) {
-    speed_y = -speed_y;
-  }
-  renderImage(planet_image, curr_x, curr_y);
+  renderCelestialObjects();
   requestAnimationFrame(render);
 }
 
@@ -111,17 +106,6 @@ function render() {
   fitToScreen();
   renderBackground();
   renderCelestialObjects();
-  curr_x += speed_x;
-  curr_y += speed_y;
-  if (curr_x > document.documentElement.clientHeight - 100 || curr_x < 0) {
-    speed_x = -speed_x;
-  } else if (
-    curr_y > document.documentElement.clientWidth - 100 ||
-    curr_y < 0
-  ) {
-    speed_y = -speed_y;
-  }
-  renderImage(planet_image, curr_x, curr_y);
   requestAnimationFrame(render);
 }
 
@@ -135,8 +119,6 @@ let celestialObjects = [
 // image
 planet_image.src = "https://zeyu-li.github.io/black-hole/img/coin.png";
 planet_image.onload = () => {
-  curr_x = 0;
-  curr_y = 0;
   initialize();
   render();
 };
