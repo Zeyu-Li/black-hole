@@ -111,6 +111,17 @@ function render() {
   fitToScreen();
   renderBackground();
   renderCelestialObjects();
+  curr_x += speed_x;
+  curr_y += speed_y;
+  if (curr_x > document.documentElement.clientHeight - 100 || curr_x < 0) {
+    speed_x = -speed_x;
+  } else if (
+    curr_y > document.documentElement.clientWidth - 100 ||
+    curr_y < 0
+  ) {
+    speed_y = -speed_y;
+  }
+  renderImage(planet_image, curr_x, curr_y);
   requestAnimationFrame(render);
 }
 
