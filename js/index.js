@@ -1,5 +1,18 @@
+const canvas = document.getElementById("game-canvas");
+const ctx = canvas.getContext("2d");
+var DEBUG = true;
+
+let planet_image = new Image();
+let curr_x, curr_y;
+let speed_x = 5,
+  speed_y = 5;
+
 class CelestialObject {
-  constructor(mass, initialPosition, initialVelocity) {
+  constructor(
+    mass,
+    initialPosition = new Vector(canvas.width / 2, canvas.height / 2),
+    initialVelocity = new Vector(0, 0)
+  ) {
     this.mass = mass;
     this.old_position = initialPosition;
     this.old_velocity = initialVelocity;
@@ -18,15 +31,23 @@ class CelestialObject {
   }
 
   get acceleration() {
-    return new Vector(0, 0);
+    let accelerations = [];
+    for (let celestialObject of celestialObjects) {
+      if (celestialObject !== this) {
+        accelerations.push(GravityAcceleration(this, celestialObject));
+      }
+    }
+    return accelerations.reduce((v1, v2) => v1.add(v2));
+  }
+
+  render() {
+    ctx.beginPath();
+    let position = this.position;
+    ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
+    ctx.fillStyle = "#ffff00";
+    ctx.fill();
   }
 }
-
-let canvas, ctx;
-let planet_image = new Image();
-let curr_x, curr_y;
-let speed_x = 5,
-  speed_y = 5;
 
 function fitToScreen() {
   canvas.width = Math.max(
@@ -60,10 +81,7 @@ function renderImage(image, x, y, size_x = 100, size_y = 100) {
 const initialize = () => {
   // closest neighbour (default is bilinear)
   // ctx.imageSmoothingEnabled = false
-
   // get canvas and context
-  canvas = document.getElementById("game-canvas");
-  ctx = canvas.getContext("2d");
 };
 
 function render() {
@@ -82,6 +100,26 @@ function render() {
   renderImage(planet_image, curr_x, curr_y);
   requestAnimationFrame(render);
 }
+
+function renderCelestialObjects() {
+  for (let celestialObject of celestialObjects) {
+    celestialObject.render();
+  }
+}
+
+function render() {
+  fitToScreen();
+  renderBackground();
+  renderCelestialObjects();
+  requestAnimationFrame(render);
+}
+
+let celestialObjects = [
+  new CelestialObject(10, new Vector(100, 100)),
+  new CelestialObject(20, new Vector(255, 500), new Vector(5, -1)),
+  new CelestialObject(30, new Vector(400, 150)),
+  new CelestialObject(30, new Vector(600, 750)),
+];
 
 // image
 planet_image.src = "../img/coin.png";
