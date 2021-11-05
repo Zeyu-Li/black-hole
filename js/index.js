@@ -133,7 +133,7 @@ let celestialObjects = [
 ];
 
 // image
-planet_image.src = "../img/coin.png";
+planet_image.src = "https://zeyu-li.github.io/black-hole/img/coin.png";
 planet_image.onload = () => {
   curr_x = 0;
   curr_y = 0;
