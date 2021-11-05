@@ -23,6 +23,10 @@ class CelestialObject {
 }
 
 let canvas, ctx;
+let planet_image = new Image();
+let curr_x, curr_y;
+let speed_x = 5,
+  speed_y = 5;
 
 function fitToScreen() {
   canvas.width = Math.max(
@@ -40,7 +44,23 @@ function renderBackground() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+/**
+ * Renders an image at x, y of size size_x by size_y
+ * Note: top left corner is 0, 0
+ * @param {Image} image image to be rendered
+ * @param {number} x
+ * @param {*} y
+ * @param {*} size_x
+ * @param {*} size_y
+ */
+function renderImage(image, x, y, size_x = 100, size_y = 100) {
+  ctx.drawImage(image, y, x, size_y, size_x);
+}
+
 const initialize = () => {
+  // closest neighbour (default is bilinear)
+  // ctx.imageSmoothingEnabled = false
+
   // get canvas and context
   canvas = document.getElementById("game-canvas");
   ctx = canvas.getContext("2d");
@@ -49,8 +69,25 @@ const initialize = () => {
 function render() {
   fitToScreen();
   renderBackground();
+  curr_x += speed_x;
+  curr_y += speed_y;
+  if (curr_x > document.documentElement.clientHeight - 100 || curr_x < 0) {
+    speed_x = -speed_x;
+  } else if (
+    curr_y > document.documentElement.clientWidth - 100 ||
+    curr_y < 0
+  ) {
+    speed_y = -speed_y;
+  }
+  renderImage(planet_image, curr_x, curr_y);
   requestAnimationFrame(render);
 }
 
-initialize();
-render();
+// image
+planet_image.src = "../img/coin.png";
+planet_image.onload = () => {
+  curr_x = 0;
+  curr_y = 0;
+  initialize();
+  render();
+};
