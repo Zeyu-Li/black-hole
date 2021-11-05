@@ -2,7 +2,7 @@
 
 An N-Body simulator in vanillaJS and a canvas 🖼
 
-
+![logo](img/logo.png)
 
 See it live @ [zeyu-li.github.io/black-hole](https://zeyu-li.github.io/black-hole/)
 

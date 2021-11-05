@@ -38,8 +38,8 @@ class CelestialObject {
   }
 
   render() {
-    // ctx.beginPath();
     let position = this.position;
+    // ctx.beginPath();
     // ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
     // ctx.fillStyle = "#ffff00";
     // ctx.fill();
