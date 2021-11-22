@@ -12,12 +12,24 @@
     <meta property="og:image" content="" />
 
     <!-- Mini icon on tab -->
-    <link rel="icon" href="img/" type="image/ico" />
+    <link rel="icon" href="img/favicon.ico" type="image/ico" />
     <link rel="stylesheet" href="css/style.css" defer />
-    <script src="js/physics.js"></script>
+    <script src="js/physics.js" defer></script>
   </head>
   <body>
     <noscript>Please enable JavaScript for it to run 🥺</noscript>
+    <div class="input-sidebar transition">
+      <h2>Options</h2>
+      <h3>Simulation Speed</h3>
+      <input
+        type="range"
+        min="2"
+        max="100"
+        value="2"
+        class="slider"
+        id="myRange"
+      />
+    </div>
     <canvas id="game-canvas"></canvas>
     <script src="js/index.js" defer></script>
   </body>
