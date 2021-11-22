@@ -1,6 +1,34 @@
 body {
-	margin: 0;
-	width: 100vw;
-	height: 100vh;
-	overflow: hidden;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.transition {
+  transition: 0.2s;
+  -moz-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+}
+
+.input-sidebar {
+  position: absolute;
+  top: 20;
+  right: 0;
+  background: rgba(255, 255, 255, 0.637);
+  opacity: 0.6;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.input-sidebar:hover {
+  background: rgba(255, 255, 255, 0.808);
+  opacity: 1;
+}
+
+.input-sidebar h2 {
+  text-align: center;
+  margin: 0;
 }

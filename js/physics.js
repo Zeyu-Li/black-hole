@@ -1,6 +1,10 @@
 // TODO: finetune this constant
 const G = 250;
-const TIME_SCALE = 1 / 60;
+const MIN_TIME_SCALE = 1 / 60;
+const MAX_TIME_SCALE = 1;
+let TIME_SCALE = 1 / 60;
+
+const $ = (e) => document.querySelector(e);
 
 function isVector(o) {
   return o.x !== undefined && o.y !== undefined;
@@ -59,3 +63,9 @@ function GravityAcceleration(o1, o2) {
   const angle = o1.old_position.angleTo(o2.old_position);
   return new Vector(acc * Math.cos(angle), acc * Math.sin(angle));
 }
+
+function changeSpeed() {
+  TIME_SCALE = ($(".slider").value / 100) * MAX_TIME_SCALE;
+}
+
+$(".slider").addEventListener("change", changeSpeed);
