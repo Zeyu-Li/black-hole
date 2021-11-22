@@ -101,14 +101,6 @@ function renderCelestialObjects() {
     celestialObject.render();
   }
 }
-
-function render() {
-  fitToScreen();
-  renderBackground();
-  renderCelestialObjects();
-  requestAnimationFrame(render);
-}
-
 let celestialObjects = [
   new CelestialObject(10, new Vector(100, 100)),
   new CelestialObject(20, new Vector(255, 500), new Vector(5, -1)),
@@ -117,7 +109,7 @@ let celestialObjects = [
 ];
 
 // image
-planet_image.src = "https://zeyu-li.github.io/black-hole/img/coin.png";
+planet_image.src = "https://zeyu-li.github.io/black-hole/img/planet.png";
 planet_image.onload = () => {
   initialize();
   render();
