@@ -101,7 +101,7 @@ function renderCelestialObjects() {
     celestialObject.render();
   }
 }
-let celestialObjects = [
+const celestialObjects = [
   new CelestialObject(10, new Vector(100, 100)),
   new CelestialObject(20, new Vector(255, 500), new Vector(5, -1)),
   new CelestialObject(30, new Vector(400, 150)),
@@ -109,8 +109,23 @@ let celestialObjects = [
 ];
 
 // image
-planet_image.src = "https://zeyu-li.github.io/black-hole/img/planet.png";
+planet_image.src =
+  "https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/img/planet.png";
 planet_image.onload = () => {
   initialize();
   render();
 };
+
+function addMass() {
+  const maxX = 700;
+  const maxY = 1000;
+
+  celestialObjects.push(
+    new CelestialObject(
+      $(".mass").value,
+      new Vector(Math.random() * maxX, Math.random() * maxY)
+    )
+  );
+}
+
+$(".generateMass").addEventListener("click", addMass);

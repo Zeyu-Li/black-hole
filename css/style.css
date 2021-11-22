@@ -5,6 +5,11 @@ body {
   overflow: hidden;
 }
 
+h4,
+button {
+  text-align: center;
+}
+
 .transition {
   transition: 0.2s;
   -moz-transition: 0.2s;
