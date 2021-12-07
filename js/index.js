@@ -135,7 +135,7 @@ function mergeCelestialObjects() {
     for (let j = i + 1; j < celestialObjects.length; j++) {
       const p1 = celestialObjects[i].old_position;
       const p2 = celestialObjects[j].old_position;
-      if (p1.distanceTo(p2) < MIN_MASS) {
+      if (p1.distanceTo(p2) < Math.max(celestialObjects[i].mass, celestialObjects[j].mass) * IMAGE_RESIZE / 4) {
         const totalMass = celestialObjects[i].mass + celestialObjects[j].mass;
         const v1 = celestialObjects[i]
           .old_velocity
