@@ -44,13 +44,14 @@ class CelestialObject {
   }
 
   render() {
-    let position = this.position;
+    const position = this.position;
+    const dimension = this.mass * IMAGE_RESIZE;
     renderImage(
       planet_image,
-      position.x,
-      position.y,
-      this.mass * IMAGE_RESIZE,
-      this.mass * IMAGE_RESIZE
+      position.x - (dimension / 2),
+      position.y - (dimension / 2),
+      dimension,
+      dimension
     );
   }
 }
@@ -112,6 +113,7 @@ function renderCelestialObjects() {
 
 function cleanupCelestialObjects() {
   deleteOffscreenCelestialObjects();
+  mergeCelestialObjects();
 }
 
 function deleteOffscreenCelestialObjects() {
@@ -124,6 +126,34 @@ function deleteOffscreenCelestialObjects() {
       p.y > canvas.height + OFFSCREEN_PADDING
     ) {
       celestialObjects.splice(i, 1);
+    }
+  }
+}
+
+function mergeCelestialObjects() {
+  for (let i = 0; i < celestialObjects.length - 1; i++) {
+    for (let j = i + 1; j < celestialObjects.length; j++) {
+      const p1 = celestialObjects[i].old_position;
+      const p2 = celestialObjects[j].old_position;
+      if (p1.distanceTo(p2) < MIN_MASS) {
+        const totalMass = celestialObjects[i].mass + celestialObjects[j].mass;
+        const v1 = celestialObjects[i]
+          .old_velocity
+          .multiply(celestialObjects[i].mass);
+        const v2 = celestialObjects[j]
+          .old_velocity
+          .multiply(celestialObjects[j].mass);
+        celestialObjects[i].old_velocity = v1
+          .add(v2)
+          .multiply(1 / (totalMass));
+        celestialObjects[i].old_position = p1
+          .multiply(celestialObjects[i].mass)
+          .add(p2.multiply(celestialObjects[j].mass))
+          .multiply(1 / (totalMass));
+        celestialObjects[i].mass = totalMass;
+        celestialObjects.splice(j, 1);
+        break;
+      }
     }
   }
 }
