@@ -1,7 +1,11 @@
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+const OFFSCREEN_PADDING = 200;
+const IMAGE_RESIZE = 3;
+const MIN_MASS = 5;
+const MAX_MASS = 50;
 var DEBUG = true;
-
+const celestialObjects = [];
 let planet_image = new Image();
 
 class CelestialObject {
@@ -22,8 +26,10 @@ class CelestialObject {
   }
 
   get velocity() {
-    const velocity_incr = this.acceleration.multiply(TIME_SCALE);
-    this.old_velocity = velocity_incr.add(this.old_velocity);
+    if (celestialObjects.length > 1) {
+      const velocity_incr = this.acceleration.multiply(TIME_SCALE);
+      this.old_velocity = velocity_incr.add(this.old_velocity);
+    }
     return this.old_velocity;
   }
 
@@ -39,17 +45,12 @@ class CelestialObject {
 
   render() {
     let position = this.position;
-    // ctx.beginPath();
-    // ctx.arc(position.x, position.y, this.mass, 0, 2 * Math.PI);
-    // ctx.fillStyle = "#ffff00";
-    // ctx.fill();
-
     renderImage(
       planet_image,
       position.x,
       position.y,
-      this.mass * 3,
-      this.mass * 3
+      this.mass * IMAGE_RESIZE,
+      this.mass * IMAGE_RESIZE
     );
   }
 }
@@ -94,19 +95,45 @@ function render() {
   renderBackground();
   renderCelestialObjects();
   requestAnimationFrame(render);
+  cleanupCelestialObjects();
 }
 
 function renderCelestialObjects() {
-  for (let celestialObject of celestialObjects) {
-    celestialObject.render();
+  try {
+    for (let celestialObject of celestialObjects) {
+      celestialObject.render();
+    }
+  } catch (error) {
+    if (!(error instanceof TypeError)) {
+      throw error;
+    }
   }
 }
-const celestialObjects = [
-  new CelestialObject(10, new Vector(100, 100)),
-  new CelestialObject(20, new Vector(255, 500), new Vector(5, -1)),
-  new CelestialObject(30, new Vector(400, 150)),
-  new CelestialObject(30, new Vector(600, 750)),
-];
+
+function cleanupCelestialObjects() {
+  deleteOffscreenCelestialObjects();
+}
+
+function deleteOffscreenCelestialObjects() {
+  for (let i = 0; i < celestialObjects.length; i++) {
+    let p = celestialObjects[i].old_position;
+    if (
+      p.x < -OFFSCREEN_PADDING ||
+      p.x > canvas.width + OFFSCREEN_PADDING ||
+      p.y < -OFFSCREEN_PADDING ||
+      p.y > canvas.height + OFFSCREEN_PADDING
+    ) {
+      celestialObjects.splice(i, 1);
+    }
+  }
+}
+
+for (let i = 0; i < Math.random() * 5 + 5; i++) {
+  celestialObjects.push(
+    new CelestialObject((Math.random() ** 5) * (MAX_MASS - MIN_MASS) + MIN_MASS,
+      new Vector(Math.random() * canvas.width, Math.random() * canvas.height))
+  );
+}
 
 // image
 planet_image.src =
@@ -117,13 +144,10 @@ planet_image.onload = () => {
 };
 
 function addMass() {
-  const maxX = 700;
-  const maxY = 1000;
-
   celestialObjects.push(
     new CelestialObject(
       $(".mass").value,
-      new Vector(Math.random() * maxX, Math.random() * maxY)
+      new Vector(Math.random() * canvas.width, Math.random() * canvas.height)
     )
   );
 }
