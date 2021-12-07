@@ -174,16 +174,17 @@ planet_image.onload = () => {
   render();
 };
 
-function addMass() {
+$("#generateMass").addEventListener("click", () => {
   celestialObjects.push(
     new CelestialObject(
       $(".mass").value,
       new Vector(Math.random() * canvas.width, Math.random() * canvas.height)
     )
   );
-}
-
-$(".generateMass").addEventListener("click", addMass);
+});
+$("#deleteButton").addEventListener("click", () => {
+  celestialObjects.splice(0);
+});
 
 window.addEventListener('load', () => {
   fetch('https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/data/info.txt')

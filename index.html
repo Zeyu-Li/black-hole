@@ -19,22 +19,25 @@
   <body>
     <noscript>Please enable JavaScript for it to run 🥺</noscript>
     <div class="input-sidebar transition">
-      <h2>Options</h2>
-      <h3>Simulation Speed</h3>
-      <input
-        type="range"
-        min="2"
-        max="100"
-        value="2"
-        class="slider"
-        id="myRange"
-      />
-      <h3>Generate <br />Random Planet</h3>
-      <h4>Mass</h4>
-      <input type="range" min="5" max="50" value="10" class="mass" /><br />
-      <div style="display: flex; justify-content: center">
-        <button class="generateMass">Generate</button>
-      </div>
+      <details>
+        <summary style="cursor: pointer"><h2 style="display: inline">Options</h2></summary>
+        <h3>Simulation Speed</h3>
+        <input
+          type="range"
+          min="2"
+          max="100"
+          value="2"
+          class="slider"
+          id="myRange"
+        />
+        <h3>Generate Random Body</h3>
+        <h4>Mass</h4>
+        <input type="range" min="5" max="50" value="10" class="mass" /><br />
+        <div class="button-lst">
+          <button class="btn" id="generateMass">Generate</button>
+          <button class="btn delete-btn" id='deleteButton'>Delete all</button>
+        </div>
+      </details>
     </div>
     <canvas id="game-canvas"></canvas>
     <script src="js/index.js" defer></script>
