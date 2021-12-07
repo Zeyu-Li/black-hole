@@ -82,7 +82,7 @@ function renderBackground() {
  * @param {*} size_y
  */
 function renderImage(image, x, y, size_x = 100, size_y = 100) {
-  ctx.drawImage(image, y, x, size_y, size_x);
+  ctx.drawImage(image, x, y, size_y, size_x);
 }
 
 const initialize = () => {
@@ -181,7 +181,7 @@ $("#generateMass").addEventListener("click", () => {
     new CelestialObject(
       $("#massSlider").value,
       new Vector(Math.random() * canvas.width, Math.random() * canvas.height),
-      new Vector(speed * Math.sin(angle), speed * Math.cos(angle))
+      new Vector(speed * Math.cos(angle), speed * Math.sin(angle))
     )
   );
 });
