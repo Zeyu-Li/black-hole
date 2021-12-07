@@ -22,17 +22,34 @@
       <details>
         <summary style="cursor: pointer"><h2 style="display: inline">Options</h2></summary>
         <h3>Simulation Speed</h3>
-        <input
+        <div class="slider">
+          <input
           type="range"
           min="2"
           max="100"
           value="2"
-          class="slider"
-          id="myRange"
-        />
+          id="simSpeed"
+          />
+        </div>
         <h3>Generate Random Body</h3>
-        <h4>Mass</h4>
-        <input type="range" min="5" max="50" value="10" class="mass" /><br />
+        <h4 class="slider-label">Mass</h4>
+        <div class="slider">
+          <span class="range-lbl">5</span>
+          <input type="range" min="5" max="50" value="10" id="massSlider" />
+          <span class="range-lbl">50</span>
+        </div>
+        <h4 class="slider-label">Speed</h4>
+        <div class="slider">
+          <span class="range-lbl">0</span>
+          <input type="range" min="0" max="10" value="2" id="speedSlider" />
+          <span class="range-lbl">10</span>
+        </div>
+        <h4 class="slider-label">Angle</h4>
+        <div class="slider">
+          <span class="range-lbl">0</span>
+          <input type="range" min="0" max="2" value="1" step="0.25" id="angleSlider" />
+          <span class="range-lbl">2π</span>
+        </div>
         <div class="button-lst">
           <button class="btn" id="generateMass">Generate</button>
           <button class="btn delete-btn" id='deleteButton'>Delete all</button>

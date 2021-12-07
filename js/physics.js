@@ -65,7 +65,7 @@ function GravityAcceleration(o1, o2) {
 }
 
 function changeSpeed() {
-  TIME_SCALE = ($(".slider").value / 100) * MAX_TIME_SCALE;
+  TIME_SCALE = ($("#simSpeed").value / 100) * MAX_TIME_SCALE;
 }
 
-$(".slider").addEventListener("change", changeSpeed);
+$("#simSpeed").addEventListener("change", changeSpeed);

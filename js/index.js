@@ -175,10 +175,13 @@ planet_image.onload = () => {
 };
 
 $("#generateMass").addEventListener("click", () => {
+  const speed = $("#speedSlider").value;
+  const angle = $("#angleSlider").value * Math.PI;
   celestialObjects.push(
     new CelestialObject(
-      $(".mass").value,
-      new Vector(Math.random() * canvas.width, Math.random() * canvas.height)
+      $("#massSlider").value,
+      new Vector(Math.random() * canvas.width, Math.random() * canvas.height),
+      new Vector(speed * Math.sin(angle), speed * Math.cos(angle))
     )
   );
 });

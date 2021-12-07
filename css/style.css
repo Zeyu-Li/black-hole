@@ -45,6 +45,10 @@ button {
   margin: 0;
 }
 
+.input-sidebar h3 {
+  margin-block-end: .5em;
+}
+
 .button-lst {
   margin-top: .5rem;
   display: flex;
@@ -87,7 +91,25 @@ button {
   background: #f00000;
 }
 
-input[type=range] {
+.slider {
+  display: flex;
+  display-direction: row;
+}
+
+h4.slider-label {
+  margin-block-start: .5em;
+  margin-block-end: .5em;
+}
+
+.slider .range-lbl {
+  width: 4ex;
+}
+
+.slider input ~ .range-lbl {
+  text-align: end;
+}
+
+.slider input[type=range] {
   width: 100%;
   margin: 0;
 }
