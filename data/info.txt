@@ -1,0 +1,5 @@
+Welcome to the n-body simulator for ASTRO 101 at the University of Alberta.
+
+Creating an n-body simulation is very complicated. In order to implement a simulator capable of running on a web browser, a couple of simplifications have been made. For one, once a body is outside of the screen, it is deleted. Whenever two objects get really close, they merge immediately while conserving momentum, like if two black holes collided such that there is no big explosion. Sometimes they may still not fully collide and isntead catapult each other away. We also didn't implement any gravitational radiation since the formulas are beyond the scope of this course.
+
+We hope you enjoy the simulator!
