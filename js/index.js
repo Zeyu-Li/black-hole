@@ -9,6 +9,7 @@ var DEBUG = true;
 let PLAY = true;
 const celestialObjects = [];
 let planet_image = new Image();
+let coords = new Image();
 
 class CelestialObject {
   constructor(
@@ -91,6 +92,7 @@ const initialize = () => {
   // closest neighbour (default is bilinear)
   // ctx.imageSmoothingEnabled = false
   // get canvas and context
+  ctx.drawImage(coords, 0, 0, 200, 200)
 };
 
 function render() {
@@ -98,6 +100,7 @@ function render() {
   renderBackground();
   renderCelestialObjects();
   cleanupCelestialObjects();
+  initialize();
   if (PLAY) {
     requestAnimationFrame(render);
   }
@@ -174,8 +177,13 @@ for (let i = 0; i < Math.random() * 5 + 5; i++) {
 planet_image.src =
   "https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/img/planet.png";
 planet_image.onload = () => {
-  initialize();
-  render();
+  // initialize();
+  // coords
+  coords.src =
+    "https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/img/arrows.svg";
+    coords.onload = () => {
+    render();
+  };
 };
 
 
