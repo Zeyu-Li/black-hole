@@ -297,25 +297,25 @@ $("#preset2").addEventListener("click", () => {
   );
 });
 
-/*
- * Preset 3: Three bodies in an 8-figure
-*/
-$("#preset3").addEventListener("click", () => {
+const threebody = (s) => {
   resumeIfPaused();
-  const center = new Vector(3 * canvas.width / 4, 3 * canvas.height / 4);
+  const center = new Vector(canvas.width / 2, canvas.height / 2);
   const c = 100;
   const m = 10;
   const r1 = new Vector(0.97000436, -0.24308753)
-    .multiply(c);
+    .multiply(c * s);
   const r2 = new Vector(-0.97000436, 0.24308753)
-    .multiply(c);
+    .multiply(c * s);
   const r3 = new Vector(0, 0);
   const v1 = new Vector(-0.4662036850, -0.4323657300)
-    .multiply(c / 10);
+    .multiply(c / 10)
+    .add(2.2);
   const v2 = new Vector(-0.4662036850, -0.4323657300)
-    .multiply(c / 10);
+    .multiply(c / 10)
+    .add(2.2);
   const v3 = new Vector(0.93240737, 0.86473146)
-    .multiply(c / 40);
+    .multiply(c / 40)
+    .add(2.2);
   const p1 = center.add(r1);
   const p2 = center.add(r2);
   const p3 = center.add(r3);
@@ -324,4 +324,14 @@ $("#preset3").addEventListener("click", () => {
     new CelestialObject(m, p2, v2),
     new CelestialObject(m, p3, v3)
   );
-});
+}
+
+/*
+ * Preset 3: Three bodies in an 8-figure
+*/
+$("#preset3").addEventListener("click", () => threebody(1));
+
+/*
+ * Preset 4: Three bodies in an 8-figure (variation)
+*/
+$("#preset4").addEventListener("click", () => threebody(1.2));
