@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1024 1024" style="enable-background:new 0 0 1024 1024;" xml:space="preserve">
+<style type="text/css">
+	.st0{display:none;}
+	.st1{display:inline;fill:#AD4D4D;}
+	.st2{fill:none;stroke:#FFFFFF;stroke-width:33;stroke-linecap:round;stroke-miterlimit:10;}
+	.st3{fill:#FFFFFF;}
+	.st4{font-family:'Bauhaus93';}
+	.st5{font-size:223.971px;}
+</style>
+<g id="Layer_2" class="st0">
+	<rect x="-19.5" y="-8.5" class="st1" width="1066" height="1032"/>
+</g>
+<g id="Layer_1">
+	<g>
+		<g>
+			<line class="st2" x1="205.5" y1="205" x2="205.5" y2="713.4"/>
+			<g>
+				<path class="st3" d="M205.5,819c-18.4-49.7-49.9-111.3-83.2-149.5l83.2,30.1l83.2-30.1C255.4,707.7,223.9,769.3,205.5,819z"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<g>
+			<line class="st2" x1="205.5" y1="205" x2="713.9" y2="205"/>
+			<g>
+				<path class="st3" d="M819.5,205c-49.7,18.4-111.3,49.9-149.5,83.2l30.1-83.2L670,121.8C708.2,155.1,769.8,186.6,819.5,205z"/>
+			</g>
+		</g>
+	</g>
+	<text transform="matrix(1 0 0 1 686.8281 458.1094)" class="st3 st4 st5">X</text>
+	<text transform="matrix(1 0 0 1 324.8281 819.1094)" class="st3 st4 st5">Y</text>
+</g>
+</svg>

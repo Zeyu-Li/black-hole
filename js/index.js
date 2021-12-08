@@ -1,5 +1,6 @@
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false
 const OFFSCREEN_PADDING = 200;
 const IMAGE_RESIZE = 3;
 const MIN_MASS = 5;
