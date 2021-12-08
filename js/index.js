@@ -283,30 +283,14 @@ $("#preset2").addEventListener("click", () => {
   const center = new Vector(canvas.width / 2, canvas.height / 2);
   const m1 = 5;
   const m2 = 20;
-  const a = 250;
-  const r1 = a / (1 + (m1 / m2));
-  const r2 = a / (1 + (m2 / m1));
-  const speed1 = Math.sqrt(G * m2 / (r1));
-  const speed2 = Math.sqrt(G * m1 / (r2));
+  const r1 = 200;
+  const r2 = 50;
+  const speed1 = 4;
+  const speed2 = 1;
   const loc1 = center.add(new Vector(r1, 0));
   const loc2 = center.subtract(new Vector(r2, 0));
   const vel1 = new Vector(0, speed1);
   const vel2 = new Vector(0, -speed2);
-  if (DEBUG) {
-    console.table([
-      {
-        mass: m1,
-        radius: r1,
-        speed: speed1
-      },
-      {
-        mass: m2,
-        radius: r2,
-        speed: speed2
-      }
-    ]);
-    console.debug(a);
-  }
   celestialObjects.push(
     new CelestialObject(m1, loc1, vel1),
     new CelestialObject(m2, loc2, vel2)
