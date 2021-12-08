@@ -52,9 +52,13 @@ button {
 .button-lst {
   margin-top: .5rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-direction: column;
   gap: .5rem;
+}
+
+.button-lst.lst-inline {
+  flex-direction: row;
 }
 
 .btn {
@@ -64,6 +68,7 @@ button {
   padding: .5rem;
   border-radius: 5px;
   cursor: pointer;
+  width: 100%;
 }
 
 .btn:hover {
@@ -93,7 +98,8 @@ button {
 
 .slider {
   display: flex;
-  display-direction: row;
+  flex-direction: row;
+  width: 100%;
 }
 
 h4.slider-label {

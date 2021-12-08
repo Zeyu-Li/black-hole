@@ -5,6 +5,7 @@ const IMAGE_RESIZE = 3;
 const MIN_MASS = 5;
 const MAX_MASS = 50;
 var DEBUG = true;
+let PLAY = true;
 const celestialObjects = [];
 let planet_image = new Image();
 
@@ -95,8 +96,10 @@ function render() {
   fitToScreen();
   renderBackground();
   renderCelestialObjects();
-  requestAnimationFrame(render);
   cleanupCelestialObjects();
+  if (PLAY) {
+    requestAnimationFrame(render);
+  }
 }
 
 function renderCelestialObjects() {
@@ -174,7 +177,23 @@ planet_image.onload = () => {
   render();
 };
 
+
+/*
+ * Button event listeners
+ */
+
+$("#pause").addEventListener("click", () => {
+  PLAY = !PLAY;
+  if (PLAY) {
+    render();
+  }
+});
+
 $("#generateMass").addEventListener("click", () => {
+  if (!PLAY) {
+    PLAY = true;
+    render();
+  }
   const speed = $("#speedSlider").value;
   const angle = $("#angleSlider").value * Math.PI;
   celestialObjects.push(
@@ -185,7 +204,12 @@ $("#generateMass").addEventListener("click", () => {
     )
   );
 });
+
 $("#deleteButton").addEventListener("click", () => {
+  if (!PLAY) {
+    PLAY = true;
+    render();
+  }
   celestialObjects.splice(0);
 });
 

@@ -22,14 +22,22 @@
       <details>
         <summary style="cursor: pointer"><h2 style="display: inline">Options</h2></summary>
         <h3>Simulation Speed</h3>
-        <div class="slider">
-          <input
-          type="range"
-          min="2"
-          max="100"
-          value="2"
-          id="simSpeed"
-          />
+        <div class="button-lst lst-inline">
+          <button class="btn" id="pause" style="width: fit-content;">⏯</button>
+          <div class="slider">
+            <input
+            type="range"
+            min="2"
+            max="100"
+            value="2"
+            id="simSpeed"
+            />
+          </div>
+        </div>
+        <h3>Generate Preset Bodies</h3>
+        <div class="button-lst">
+          <button class="btn" id="preset1">Preset 1</button>
+          <button class="btn" id="preset2">Preset 2</button>
         </div>
         <h3>Generate Random Body</h3>
         <h4 class="slider-label">Mass</h4>
@@ -52,7 +60,7 @@
         </div>
         <div class="button-lst">
           <button class="btn" id="generateMass">Generate</button>
-          <button class="btn delete-btn" id='deleteButton'>Delete all</button>
+          <button class="btn delete-btn" id="deleteButton">Delete all</button>
         </div>
       </details>
     </div>
