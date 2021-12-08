@@ -9,9 +9,7 @@ body {
   overflow: hidden;
 }
 
-h4,
-h3,
-button {
+h3, button {
   text-align: center;
 }
 
@@ -103,8 +101,7 @@ button {
 }
 
 h4.slider-label {
-  margin-block-start: .5em;
-  margin-block-end: .5em;
+  margin: 0;
 }
 
 .slider .range-lbl {
@@ -118,4 +115,18 @@ h4.slider-label {
 .slider input[type=range] {
   width: 100%;
   margin: 0;
+}
+
+.slider-label-grp {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  margin-block-start: .5em;
+  margin-block-end: .5em;
+}
+
+.slider-label-grp .slider-value {
+  font-style: italic;
+  color: #2754cf;
 }

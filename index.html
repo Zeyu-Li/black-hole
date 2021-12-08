@@ -19,9 +19,9 @@
   <body>
     <noscript>Please enable JavaScript for it to run 🥺</noscript>
     <div class="input-sidebar transition">
-      <details>
+      <details open>
         <summary style="cursor: pointer"><h2 style="display: inline">Options</h2></summary>
-        <h3>Simulation Speed</h3>
+        <h3>Simulation Time Factor</h3>
         <div class="button-lst lst-inline">
           <button class="btn" id="pause" style="width: fit-content;">⏯</button>
           <div class="slider">
@@ -40,19 +40,28 @@
           <button class="btn" id="preset2">Preset 2</button>
         </div>
         <h3>Generate Random Body</h3>
-        <h4 class="slider-label">Mass</h4>
+        <div class="slider-label-grp">
+          <h4 class="slider-label">Mass</h4>
+          <span class="slider-value" id="massVal">x</span>
+        </div>
         <div class="slider">
           <span class="range-lbl">5</span>
           <input type="range" min="5" max="50" value="10" id="massSlider" />
           <span class="range-lbl">50</span>
         </div>
-        <h4 class="slider-label">Speed</h4>
+        <div class="slider-label-grp">
+          <h4 class="slider-label">Speed</h4>
+          <span class="slider-value" id="speedVal">x</span>
+        </div>
         <div class="slider">
           <span class="range-lbl">0</span>
           <input type="range" min="0" max="10" value="2" id="speedSlider" />
           <span class="range-lbl">10</span>
         </div>
-        <h4 class="slider-label">Angle</h4>
+        <div class="slider-label-grp">
+          <h4 class="slider-label">Angle</h4>
+          <span class="slider-value" id="angleVal">x</span>
+        </div>
         <div class="slider">
           <span class="range-lbl">0</span>
           <input type="range" min="0" max="2" value="1" step="0.25" id="angleSlider" />

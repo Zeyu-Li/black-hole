@@ -90,6 +90,19 @@ const initialize = () => {
   // closest neighbour (default is bilinear)
   // ctx.imageSmoothingEnabled = false
   // get canvas and context
+  fitToScreen();
+  for (let i = 0; i < Math.random() * 5 + 5; i++) {
+    const speed = Math.random() * 16;
+    const angle = Math.random() * 2 * Math.PI;
+    celestialObjects.push(
+      new CelestialObject((Math.random() ** 5) * (MAX_MASS - MIN_MASS) + MIN_MASS,
+        new Vector(Math.random() * canvas.width, Math.random() * canvas.height),
+        new Vector(speed * Math.cos(angle), speed * Math.sin(angle)))
+    );
+  }
+  $("#massVal").innerText = $("#massSlider").value;
+  $("#speedVal").innerText = $("#speedSlider").value;
+  $("#angleVal").innerText = `${$("#angleSlider").value}π`;
 };
 
 function render() {
@@ -162,11 +175,11 @@ function mergeCelestialObjects() {
   }
 }
 
-for (let i = 0; i < Math.random() * 5 + 5; i++) {
-  celestialObjects.push(
-    new CelestialObject((Math.random() ** 5) * (MAX_MASS - MIN_MASS) + MIN_MASS,
-      new Vector(Math.random() * canvas.width, Math.random() * canvas.height))
-  );
+function resumeIfPaused() {
+  if (!PLAY) {
+    PLAY = true;
+    render();
+  }
 }
 
 // image
@@ -176,6 +189,22 @@ planet_image.onload = () => {
   initialize();
   render();
 };
+
+/*
+ * Slider Listeners
+ */
+
+$("#massSlider").addEventListener("input", () => {
+  $("#massVal").innerText = $("#massSlider").value;
+});
+
+$("#speedSlider").addEventListener("input", () => {
+  $("#speedVal").innerText = $("#speedSlider").value;
+});
+
+$("#angleSlider").addEventListener("input", () => {
+  $("#angleVal").innerText = `${$("#angleSlider").value}π`;
+});
 
 
 /*
@@ -190,10 +219,7 @@ $("#pause").addEventListener("click", () => {
 });
 
 $("#generateMass").addEventListener("click", () => {
-  if (!PLAY) {
-    PLAY = true;
-    render();
-  }
+  resumeIfPaused();
   const speed = parseFloat($("#speedSlider").value);
   const angle = $("#angleSlider").value * Math.PI;
   celestialObjects.push(
@@ -206,17 +232,75 @@ $("#generateMass").addEventListener("click", () => {
 });
 
 $("#deleteButton").addEventListener("click", () => {
-  if (!PLAY) {
-    PLAY = true;
-    render();
-  }
+  resumeIfPaused();
   celestialObjects.splice(0);
 });
 
-window.addEventListener('load', () => {
-  fetch('https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/data/info.txt')
-    .then(response => {
-      response.text()
-        .then(alert);
-    });
-})
+if (!DEBUG) {
+  window.addEventListener('load', () => {
+    fetch('https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/data/info.txt')
+      .then(response => {
+        response.text()
+          .then(alert);
+      });
+  });
+}
+
+/*
+ * Preset 1: Two bodies of same mass orbiting around a barycenter
+*/
+$("#preset1").addEventListener("click", () => {
+  resumeIfPaused();
+  const center = new Vector(canvas.width / 2, canvas.height / 2);
+  const mass = 10;
+  const radius = 200;
+  // I don't know why but this value make the circular orbit a bit "circular"
+  const $wtf = 1.9;
+  const speed = Math.sqrt(G * mass / (radius)) / $wtf;
+  const loc1 = center.add(new Vector(radius, 0));
+  const loc2 = center.subtract(new Vector(radius, 0));
+  const vel1 = new Vector(0, speed);
+  const vel2 = new Vector(0, -speed);
+  celestialObjects.push(
+    new CelestialObject(mass, loc1, vel1),
+    new CelestialObject(mass, loc2, vel2)
+  );
+});
+
+/*
+ * Preset 2: Two bodies with different mass orbiting around a barycenter
+*/
+$("#preset2").addEventListener("click", () => {
+  resumeIfPaused();
+  const center = new Vector(canvas.width / 2, canvas.height / 2);
+  const m1 = 5;
+  const m2 = 20;
+  const a = 250;
+  const r1 = a / (1 + (m1 / m2));
+  const r2 = a / (1 + (m2 / m1));
+  const speed1 = Math.sqrt(G * m2 / (r1));
+  const speed2 = Math.sqrt(G * m1 / (r2));
+  const loc1 = center.add(new Vector(r1, 0));
+  const loc2 = center.subtract(new Vector(r2, 0));
+  const vel1 = new Vector(0, speed1);
+  const vel2 = new Vector(0, -speed2);
+  if (DEBUG) {
+    console.table([
+      {
+        mass: m1,
+        radius: r1,
+        speed: speed1
+      },
+      {
+        mass: m2,
+        radius: r2,
+        speed: speed2
+      }
+    ]);
+    console.debug(a);
+  }
+  celestialObjects.push(
+    new CelestialObject(m1, loc1, vel1),
+    new CelestialObject(m2, loc2, vel2)
+  );
+});
