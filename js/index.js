@@ -244,16 +244,6 @@ $("#deleteButton").addEventListener("click", () => {
   celestialObjects.splice(0);
 });
 
-if (!DEBUG) {
-  window.addEventListener('load', () => {
-    fetch('https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/data/info.txt')
-      .then(response => {
-        response.text()
-          .then(alert);
-      });
-  });
-}
-
 /*
  * Preset 1: Two bodies of same mass orbiting around a barycenter
 */
