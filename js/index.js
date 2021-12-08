@@ -194,11 +194,11 @@ $("#generateMass").addEventListener("click", () => {
     PLAY = true;
     render();
   }
-  const speed = $("#speedSlider").value;
+  const speed = parseFloat($("#speedSlider").value);
   const angle = $("#angleSlider").value * Math.PI;
   celestialObjects.push(
     new CelestialObject(
-      $("#massSlider").value,
+      parseFloat($("#massSlider").value),
       new Vector(Math.random() * canvas.width, Math.random() * canvas.height),
       new Vector(speed * Math.cos(angle), speed * Math.sin(angle))
     )

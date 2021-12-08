@@ -40,6 +40,7 @@ class Vector {
     } else if (isVector(o)) {
       return new Vector(this.x * o.x, this.y * o.y);
     }
+
     throw new TypeError("Not a Vector or Number");
   }
 
