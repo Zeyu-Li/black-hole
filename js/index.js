@@ -5,7 +5,7 @@ const OFFSCREEN_PADDING = 200;
 const IMAGE_RESIZE = 3;
 const MIN_MASS = 5;
 const MAX_MASS = 50;
-var DEBUG = true;
+var DEBUG = false;
 let PLAY = true;
 const celestialObjects = [];
 let planet_image = new Image();
@@ -294,5 +294,34 @@ $("#preset2").addEventListener("click", () => {
   celestialObjects.push(
     new CelestialObject(m1, loc1, vel1),
     new CelestialObject(m2, loc2, vel2)
+  );
+});
+
+/*
+ * Preset 3: Three bodies in an 8-figure
+*/
+$("#preset3").addEventListener("click", () => {
+  resumeIfPaused();
+  const center = new Vector(3 * canvas.width / 4, 3 * canvas.height / 4);
+  const c = 100;
+  const m = 10;
+  const r1 = new Vector(0.97000436, -0.24308753)
+    .multiply(c);
+  const r2 = new Vector(-0.97000436, 0.24308753)
+    .multiply(c);
+  const r3 = new Vector(0, 0);
+  const v1 = new Vector(-0.4662036850, -0.4323657300)
+    .multiply(c / 10);
+  const v2 = new Vector(-0.4662036850, -0.4323657300)
+    .multiply(c / 10);
+  const v3 = new Vector(0.93240737, 0.86473146)
+    .multiply(c / 40);
+  const p1 = center.add(r1);
+  const p2 = center.add(r2);
+  const p3 = center.add(r3);
+  celestialObjects.push(
+    new CelestialObject(m, p1, v1),
+    new CelestialObject(m, p2, v2),
+    new CelestialObject(m, p3, v3)
   );
 });
