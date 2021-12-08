@@ -1,5 +1,6 @@
 const canvas = document.getElementById("game-canvas");
 const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false
 const OFFSCREEN_PADDING = 200;
 const IMAGE_RESIZE = 3;
 const MIN_MASS = 5;
@@ -8,6 +9,7 @@ var DEBUG = true;
 let PLAY = true;
 const celestialObjects = [];
 let planet_image = new Image();
+let coords = new Image();
 
 class CelestialObject {
   constructor(
@@ -109,6 +111,7 @@ function render() {
   fitToScreen();
   renderBackground();
   renderCelestialObjects();
+  renderImage(coords, 0, 0);
   cleanupCelestialObjects();
   if (PLAY) {
     requestAnimationFrame(render);
@@ -187,7 +190,12 @@ planet_image.src =
   "https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/img/planet.png";
 planet_image.onload = () => {
   initialize();
-  render();
+  // coords
+  coords.src =
+    "https://raw.githubusercontent.com/Zeyu-Li/black-hole/main/img/arrows.svg";
+    coords.onload = () => {
+    render();
+  };
 };
 
 /*
